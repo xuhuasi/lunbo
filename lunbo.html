@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lunbo</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #content{
+          width: 600px;
+          height: 400px;
+          border: 3px solid #000;
+          overflow: hidden;
+        }
+        #main{
+            width: 3000px;
+            height: 400px;
+        }
+        #main img{
+            float: left;
+            width: 600px;
+            height: 400px;
+        }
+
+
+        #round{
+            position: absolute;
+            left:200px;
+            top: 370px;
+        }
+        #round span{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #313031;
+            border: 1px solid  #FFFFFF;
+            float: left;
+            margin-right: 10px;
+
+        }
+
+
+        .symbol{
+            width: 50px;
+            height: 50px;
+            background: #666;
+            font-size: 40px;
+            color: white;
+            text-align: center;
+        }
+        #prev{
+            position:absolute;
+            left: 540px;
+            top:175px;
+        }
+        #next{
+            position:absolute;
+            left: 10px;
+            top:175px;
+        }
+
+
+    </style>
+
+</head>
+<body>
+<div id="content">
+    <div id="main">
+        <img src="img/1.jpg" alt="1">
+        <img src="img/2.jpg" alt="2">
+        <img src="img/3.jpg" alt="3">
+        <img src="img/4.jpg" alt="4">
+        <img src="img/5.jpg" alt="5">
+    </div>
+    <div id="round">
+        <span class="circle"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="symbol" id="prev">&gt;</div>
+    <div class="symbol" id="next">&lt;</div>
+
+</div>
+</body>
+
+<script>
+
+</script>
+</html>
