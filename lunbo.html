@@ -14,23 +14,24 @@
           border: 3px solid #000;
           overflow: hidden;
         }
-        #main{
+        #list{
             width: 3000px;
             height: 400px;
+            position: relative;
+            left:0;
+            font-size: 0;
         }
-        #main img{
-            float: left;
+        #list img{
             width: 600px;
             height: 400px;
+
         }
-
-
-        #round{
+        #buttons{
             position: absolute;
-            left:200px;
+            left:250px;
             top: 370px;
         }
-        #round span{
+        #buttons span{
             width: 10px;
             height: 10px;
             border-radius: 50%;
@@ -38,24 +39,37 @@
             border: 1px solid  #FFFFFF;
             float: left;
             margin-right: 10px;
-
+            font-size: 0;
+        }
+        #buttons .circle {
+            background: orangered;
         }
 
 
         .symbol{
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             background: #666;
             font-size: 40px;
             color: white;
             text-align: center;
+            line-height: 40px;
+            display: none;
         }
-        #prev{
+        #content:hover .symbol{
+            display: block;
+        }
+        .symbol:hover{
+            background: #333;
+        }
+
+
+        #next{
             position:absolute;
             left: 540px;
             top:175px;
         }
-        #next{
+        #prev{
             position:absolute;
             left: 10px;
             top:175px;
@@ -63,32 +77,100 @@
 
 
     </style>
-
+    <script src="tool.js"></script>
 </head>
 <body>
 <div id="content">
-    <div id="main">
+    <div id="list" style="left: 0">
         <img src="img/1.jpg" alt="1">
         <img src="img/2.jpg" alt="2">
         <img src="img/3.jpg" alt="3">
         <img src="img/4.jpg" alt="4">
         <img src="img/5.jpg" alt="5">
     </div>
-    <div id="round">
-        <span class="circle"></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+    <div id="buttons">
+        <span class="circle">1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
     </div>
 
-    <div class="symbol" id="prev">&gt;</div>
-    <div class="symbol" id="next">&lt;</div>
+    <div class="symbol" id="prev">&lt;</div>
+    <div class="symbol" id="next">&gt;</div>
 
 </div>
 </body>
 
 <script>
+
+    window.onload= function () {
+
+        var timer=null;
+        var timer1=null;
+        var prev = getObj("prev");
+        var next = getObj("next");
+        var buttons = document.getElementsByTagName("span");
+        var list = getObj("list");
+
+        prev.addEventListener("click", function () {
+            slide(600, 0, "-3000px");
+        });
+        next.addEventListener("click", function () {
+            slide(-600, -3000, "0px");
+        });
+        for (var i = 0; i < buttons.length; i++) {
+            (function (n) {
+                buttons[n].onclick = function () {
+                    but_con(this, n);
+                }
+            })(i)
+        }
+
+
+        function slide(speed, ter, flag) {
+            var left_v = parseInt(list.style.left);
+            console.log(left_v)
+            if (left_v === ter) {
+                list.style.left = flag;
+                left_v = parseInt(list.style.left);
+            }
+            else {
+                left_v += speed;
+                list.style.left = left_v + "px";
+            }
+
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].setAttribute("class", "");
+            }
+            buttons[left_v / -600].setAttribute("class", "circle");
+        }
+
+
+        function but_con(that, num) {
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].setAttribute("class", "");
+            }
+            that.setAttribute("class", "circle");
+
+            list.style.left = num * (-600) + "px";
+        }
+
+        timer=setInterval(function(){
+            slide(-600,-2400,"0px")
+        },1500);
+        getObj("content").onmouseover=function(){
+            clearInterval(timer);
+        };
+        getObj("content").onmouseout=function(){
+            clearInterval(timer);
+            clearInterval(timer1);
+            timer1=setInterval(function(){
+                slide(-600,-2400,"0px");
+            },1500);
+        }
+
+    }
 
 </script>
 </html>
