@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+<head lang="en">
     <meta charset="UTF-8">
-    <title>lunbo</title>
+    <title></title>
     <style>
         *{
             margin: 0;
             padding: 0;
         }
         #content{
-          width: 600px;
-          height: 400px;
-          border: 3px solid #000;
-          overflow: hidden;
+            width: 600px;
+            height: 400px;
+            border: 3px solid #000;
+            overflow: hidden;
         }
         #list{
             width: 3000px;
@@ -63,6 +63,8 @@
         .symbol:hover{
             background: #333;
         }
+
+
         #next{
             position:absolute;
             left: 540px;
@@ -81,11 +83,11 @@
 <body>
 <div id="content">
     <div id="list" style="left: 0">
-        <img src="img/1.jpg" alt="1">
-        <img src="img/2.jpg" alt="2">
-        <img src="img/3.jpg" alt="3">
-        <img src="img/4.jpg" alt="4">
-        <img src="img/5.jpg" alt="5">
+        <img src="xuexi/1.jpg" alt="1">
+        <img src="xuexi/2.jpg" alt="2">
+        <img src="xuexi/3.jpg" alt="3">
+        <img src="xuexi/4.jpg" alt="4">
+        <img src="xuexi/5.jpg" alt="5">
     </div>
     <div id="buttons">
         <span class="circle">1</span>
@@ -100,76 +102,64 @@
 
 </div>
 </body>
-
 <script>
-
-    window.onload= function () {
+    window.onload=function (){
 
         var timer=null;
         var timer1=null;
-        var prev = getObj("prev");
-        var next = getObj("next");
-        var buttons = document.getElementsByTagName("span");
-        var list = getObj("list");
-
-        prev.addEventListener("click", function () {
-            slide(600, 0, "-2400px");
-        });
-        next.addEventListener("click", function () {
-            slide(-600, -2400, "0px");
-        });
-        for (var i = 0; i < buttons.length; i++) {
+        var prev=getObj("prev");
+        var next=getObj("next");
+        var list=getObj("list");
+        var buttons=document.getElementsByTagName("span");
+        prev.addEventListener("click",function(){
+            slide(600,0,"-2400px");
+        })
+        next.addEventListener("click",function(){
+            slide(-600,-2400,"0px");
+        })
+        for (var i=0;i<buttons.length;i++){
             (function (n) {
-                buttons[n].onclick = function () {
-                    but_con(this, n);
+                buttons[n].onclick=function(){
+                    but_con(this,n);
                 }
             })(i)
         }
-
-
-        function slide(speed, ter, flag) {
-            var left_v = parseInt(list.style.left);
-            console.log(left_v)
-            if (left_v === ter) {
-                list.style.left = flag;
-                left_v = parseInt(list.style.left);
+        function slide(speed,ter,flag) {
+            var left_v=parseInt(list.style.left);
+            if(left_v===ter){
+                list.style.left=flag;
+                left_v=parseInt(list.style.left);
+            }else{
+                left_v+=speed;
+                list.style.left=left_v+"px";
             }
-            else {
-                left_v += speed;
-                list.style.left = left_v + "px";
+            for(var i=0;i<buttons.length;i++){
+                buttons[i].setAttribute("class","")
             }
-
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].setAttribute("class", "");
-            }
-            buttons[left_v / -600].setAttribute("class", "circle");
+            buttons[left_v/-600].setAttribute("class","circle")
         }
-
-
-        function but_con(that, num) {
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].setAttribute("class", "");
+        function but_con(that,num){
+            for (var i= 0;i<buttons.length;i++){
+                buttons[i].setAttribute("class","");
             }
-            that.setAttribute("class", "circle");
+            that.setAttribute("class","circle");
 
-            list.style.left = num * (-600) + "px";
+            list.style.left=num*(-600)+"px";
         }
-
-        timer=setInterval(function(){
-            slide(-600,-2400,"0px")
-        },1500);
-        getObj("content").onmouseover=function(){
+        timer=setInterval(function () {
+            slide(-600,-2400,"0px");
+        },2000);
+        getObj("content").onmouseover= function () {
             clearInterval(timer);
-        };
-        getObj("content").onmouseout=function(){
+        }
+        getObj("content").onmouseout= function () {
             clearInterval(timer);
             clearInterval(timer1);
-            timer1=setInterval(function(){
+            timer1=setInterval(function () {
                 slide(-600,-2400,"0px");
-            },1500);
+            },2000);
         }
-
     }
-
 </script>
+
 </html>
